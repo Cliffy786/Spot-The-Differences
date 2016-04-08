@@ -1,20 +1,19 @@
-﻿/// <reference path="../angular.js" />
-var LoginModule = angular.module('MyAngularApp',[]);
-var LoginController = function ($scope, LoginService) {
-    $scope.isLoggedIn = false;
+/// <reference path="../angular.js" />
+var MyApp = angular.module('MyAngularApp') // extending from previously created angular module in the First Part
+var MyController = function ($scope, LoginService) {
+    $scope.IsLogedIn = false;
     $scope.Message = '';
     $scope.Submitted = false;
-    $scope.isFormValid = false;
-    //Below We're Creating A new Object
-    $scope.LoginData =
-        {
-            Username: '',
-            Password: ''
-        };
+    $scope.IsFormValid = false;
 
-    //Check if the form is Valid// Here f1 is our form name
+    $scope.LoginData = {
+        Username: '',
+        Password: ''
+    };
+
+    //Check is Form Valid or Not // Here f1 is our form Name
     $scope.$watch('f1.$valid', function (newVal) {
-        $scope.isFormValid = newVal;
+        $scope.IsFormValid = newVal;
     });
 
     $scope.Login = function () {
@@ -22,7 +21,7 @@ var LoginController = function ($scope, LoginService) {
         if ($scope.IsFormValid) {
             LoginService.GetUser($scope.LoginData).then(function (d) {
                 if (d.data.Username != null) {
-                    $scope.isLoggedIn = true;
+                    $scope.IsLogedIn = true;
                     $scope.Message = "Successfully login done. Welcome " + d.data.Fullname;
 
                 }
@@ -33,10 +32,8 @@ var LoginController = function ($scope, LoginService) {
         }
     };
 
-
 }
-
-LoginModule.controller('LoginController', LoginController).factory('LoginService', function ($http) {
+MyApp.controller('MyController',MyController).factory('LoginService', function ($http) {
     var fac = {};
     fac.GetUser = function (d) {
         return $http({
@@ -48,6 +45,7 @@ LoginModule.controller('LoginController', LoginController).factory('LoginService
     };
     return fac;
 });
+
 
 
  
