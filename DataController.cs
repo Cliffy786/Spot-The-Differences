@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,17 +28,14 @@ namespace MVCWithAngular.Controllers
 
         public JsonResult UserLogin(LoginData d)
         {
-
             using (MyDatabaseEntities2 EDM = new MyDatabaseEntities2())
             {
                 var user = EDM.Users.Where(a => a.Username.Equals(d.Username) && a.Password.Equals(d.Password)).FirstOrDefault();
                 return new JsonResult { Data = user, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-
             }
         }
 
 
-       
 
     }
 
